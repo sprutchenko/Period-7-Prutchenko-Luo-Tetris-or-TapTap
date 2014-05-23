@@ -1,2 +1,2 @@
-Period-7-Prutchenk-Luo-Tetris-or-TapTap
+Period-7-Prutchenko-Luo-Tetris-or-TapTap
 =======================================
