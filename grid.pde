@@ -10,7 +10,7 @@ void setup() {
   for (int i = 0; i < cols; i++) {
     for (int j = 0; j < rows; j++) {
       // Initialize each object
-      grid[i][j] = new Cell(i*40,j*40,40,40,i+j);
+      grid[i][j] = new Cell(i*40,j*40,40,40);
     }
   }
 }
@@ -35,7 +35,7 @@ class Cell {
  
 
   // Cell Constructor
-  Cell(float tempX, float tempY, float tempW, float tempH, float tempAngle) {
+  Cell(float tempX, float tempY, float tempW, float tempH) {
     x = tempX;
     y = tempY;
     w = tempW;
@@ -46,10 +46,11 @@ class Cell {
 
   void display() {
     stroke(255);
-
     fill(127);
     rect(x,y,w,h); 
   }
 }
+
+
 
 
