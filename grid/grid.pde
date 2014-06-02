@@ -9,7 +9,6 @@ void setup() {
   grid = new Cell[cols][rows];
   for (int i = 0; i < cols; i++) {
     for (int j = 0; j < rows; j++) {
-      // Initialize each object
       grid[i][j] = new Cell(i*40,j*40,40,40);
     }
   }
@@ -21,10 +20,11 @@ void draw() {
   // are used as arguments to the constructor for each object in the grid.  
   for (int i = 0; i < cols; i++) {
     for (int j = 0; j < rows; j++) {
-
-      grid[i][j].display();
+      grid[i][j].display(127,0,0);
     }
   }
+  grid[5][0].display();
+ 
 }
 
 // A Cell object
@@ -43,14 +43,24 @@ class Cell {
  
   } 
   
+  void setColor(int a,int b, int c) {
+     fill(a,b,c);
+  }
 
-  void display() {
+  void display(int p,int q, int r) {
     stroke(255);
-    fill(127);
+    fill(p,q,r);
     rect(x,y,w,h); 
   }
-}
 
+  void createBlock(int x){
+    if(x == 1){
+      grid[5][0].display(170);
+    }
+  }
+  
+}
+    
 
 
 
