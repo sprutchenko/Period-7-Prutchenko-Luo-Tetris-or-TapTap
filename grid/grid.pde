@@ -12,6 +12,7 @@ void setup() {
       grid[i][j] = new Cell(i*40,j*40,40,40);
     }
   }
+
 }
 
 void draw() {
@@ -23,8 +24,8 @@ void draw() {
       grid[i][j].display(119,113,56);
     }
   }
-  grid[5][0].display(225,104,0);
- 
+// grid[5][0].setColor(22,104,0);
+  Block b = new Block(6); 
 }
 
 // A Cell object
@@ -45,6 +46,7 @@ class Cell {
   
   void setColor(int a,int b, int c) {
      fill(a,b,c);
+     rect(x,y,w,h);
   }
 
   void display(int p,int q, int r) {
@@ -61,18 +63,63 @@ class Cell {
     return y;
   }
 }
-   /*
+   
 class Block{
   Cell a,b,c,d;
   int type;
   //type 1 = square, type 2 = stick, type 3 = "s" block, type 4 = "z" block, type 5 = "L" block, type 6 = flipped "L" block
-  void spin(int x){
-    if (x==2){
-     
-      
+  void setBlockColor(int x, int y, int z){
+       a.setColor(x,y,z);
+       b.setColor(x,y,z);
+       c.setColor(x,y,z);
+       d.setColor(x,y,z);
   }
   
-  void move(){
+  Block(int x){
+    type = x;
+    if(x==1){
+       a = new Cell(160,0,40,40);
+       b = new Cell(200,0,40,40);
+       c = new Cell(160,40,40,40);
+       d = new Cell(200,40,40,40);
+       setBlockColor(0,0,0);
+   }else if (x==2){
+      a = new Cell(160,0,40,40);
+      b = new Cell(160,40,40,40);
+      c = new Cell(160,80,40,40);
+      d = new Cell(160,120,40,40);
+      setBlockColor(0,0,0);
+   }else if (x==3){
+      a = new Cell(160,0,40,40);
+      b = new Cell(200,0,40,40);
+      c = new Cell(160,40,40,40);
+      d = new Cell(120,40,40,40);
+      setBlockColor(0,0,0);
+   }else if (x==4){
+      a = new Cell(120,0,40,40);
+      b = new Cell(160,0,40,40);
+      c = new Cell(160,40,40,40);
+      d = new Cell(200,40,40,40);
+      setBlockColor(0,0,0);
+   }else if (x==5){
+      a = new Cell(120,40,40,40);
+      b = new Cell(160,40,40,40);
+      c = new Cell(200,40,40,40);
+      d = new Cell(200,0,40,40);
+      setBlockColor(0,0,0);
+   }else if (x==6){
+      a = new Cell(120,0,40,40);
+      b = new Cell(120,40,40,40);
+      c = new Cell(160,40,40,40);
+      d = new Cell(200,40,40,40);
+      setBlockColor(0,0,0);
   }
+ }
+ 
+ void fall(){
+   
+}
+  
+  
 
-*/
+
