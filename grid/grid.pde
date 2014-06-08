@@ -17,7 +17,7 @@ void setup() {
     }
   }
   startTime = millis();
-  b= new Block(1);
+  b= new Block(3);
 }
 
 void draw() {
@@ -85,9 +85,15 @@ class Cell {
    
 class Block{
   Cell a,b,c,d;
-  int type;
-  int lowest;
+  
+  int type; 
   //type 1 = square, type 2 = stick, type 3 = "s" block, type 4 = "z" block, type 5 = "L" block, type 6 = flipped "L" block
+  
+  int lowest;
+  int leftest;
+  int rightest;
+// to check limits of block movement
+
   void setBlockColor(int x, int y, int z){
        a.setColor(x,y,z);
        b.setColor(x,y,z);
@@ -102,9 +108,11 @@ class Block{
        a = new Cell(25*4,0,25,25);
        b = new Cell(25*5,0,25,25);
        c = new Cell(25*4,25,25,25);
-       d = new Cell(25*5,25,25,425);
+       d = new Cell(25*5,25,25,25);
        setBlockColor(0,0,0);
        lowest = 25;
+       rightest = 5*25;
+       leftest = 4*25;
    }else if (x==2){
       a = new Cell(25*4,0,25,25);
       b = new Cell(25*4,25,25,25);
@@ -112,6 +120,8 @@ class Block{
       d = new Cell(25*4,25*3,25,25);
       setBlockColor(0,0,0);
       lowest = 75;
+      rightest = 4*25;
+      leftest= 4*25;
    }else if (x==3){
       a = new Cell(25*4,0,25,25);
       b = new Cell(25*5,0,25,25);
@@ -119,6 +129,8 @@ class Block{
       d = new Cell(25*3,25,25,25);
       setBlockColor(0,0,0);
       lowest = 25;
+      rightest = 25*5;
+      leftest = 25*3; 
    }else if (x==4){
       a = new Cell(25*3,0,25,25);
       b = new Cell(25*4,0,25,25);
@@ -126,6 +138,8 @@ class Block{
       d = new Cell(25*5,25,25,25);
       setBlockColor(0,0,0);
       lowest = 25;
+      rightest = 25*5;
+      leftest = 25*3;
    }else if (x==5){
       a = new Cell(25*3,25,25,25);
       b = new Cell(25*4,25,25,25);
@@ -133,6 +147,8 @@ class Block{
       d = new Cell(25*5,0,25,25);
       setBlockColor(0,0,0);
       lowest = 25;
+      rightest = 25*5;
+      leftest = 25*3;
    }else if (x==6){
       a = new Cell(25*3,0,25,25);
       b = new Cell(25*3,25,25,25);
@@ -140,6 +156,8 @@ class Block{
       d = new Cell(25*5,25,25,25);
       setBlockColor(0,0,0);
       lowest = 25;
+      rightest = 25*5;
+      leftest = 25*3;
   }
  }
  //checkLowest() checks whether the block has reached the bottom or not 
@@ -161,7 +179,43 @@ class Block{
    setBlockColor(0,0,0);
  }
  
- 
+ boolean checkRight(){
+   if(rightest <= 10*25){
+     return true;
+   }else{
+     return false;
+   }
+ }
+ void shiftRight(){
+   setBlockColor(119,113,56);
+   a.setXcoor(a.getXcoor() + 25);
+   b.setXcoor(b.getXcoor() + 25);
+   c.setXcoor(c.getXcoor() + 25);
+   d.setXcoor(d.getXcoor() + 25);
+   rightest += 25;
+   leftest += 25;
+   setBlockColor(0,0,0);
+ }
+   
+ boolean checkLeft(){
+   if(leftest >= 0*25){
+     return true;
+   }else{
+     return false;
+   }
+ }
+ void shiftLeft(){
+   setBlockColor(119,113,56);
+   a.setXcoor(a.getXcoor() - 25);
+   b.setXcoor(b.getXcoor() - 25);
+   c.setXcoor(c.getXcoor() - 25);
+   d.setXcoor(d.getXcoor() - 25);
+   rightest -= 25;
+   leftest -= 25;
+   setBlockColor(0,0,0);
+   }
+   
+   
 }
   
   
