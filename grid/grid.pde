@@ -21,15 +21,6 @@ void setup() {
 }
 
 void draw() {
-  //background(0);
-  // The counter variables i and j are also the column and row numbers and 
-  // are used as arguments to the constructor for each object in the grid.  
-  //for (int i = 0; i < cols; i++) {
-    //for (int j = 0; j < rows; j++) {
-      //grid[i][j].display(119,113,56);
-    //}
-  //}
-  //Block b = new Block(6); 
   timePassed = millis() - startTime;
   if (timePassed > waitTime){ 
     if(b.checkLowest()){
@@ -38,6 +29,31 @@ void draw() {
     }
   }
 }
+void keyPressed() {
+  if (key == CODED) {
+    if (keyCode == UP){ 
+      if(b.checkLowest()){
+          b.shiftDown();
+      }
+    } 
+    else if (keyCode == DOWN) {
+      if(b.checkLowest()){
+          b.shiftDown();
+        }       
+      }
+     else if (keyCode == RIGHT){
+        if(b.checkRight()){
+            b.shiftRight();
+        }
+      }
+      else{
+        if(b.checkLeft()){
+            b.shiftLeft();
+        }
+      }
+    }
+  }
+
 
 // A Cell object
 class Cell {
