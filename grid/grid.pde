@@ -3,6 +3,9 @@ Cell[][] grid;
 // Number of columns and rows in the grid
 int cols = 10;
 int rows = 20;
+int startTime, timePassed;
+int waitTime=2000;
+Block b;
 
 void setup() {
   size(250,500);
@@ -12,7 +15,8 @@ void setup() {
       grid[i][j] = new Cell(i*25,j*25,25,25);
     }
   }
-
+  startTime = millis();
+  b= new Block(1);
 }
 
 void draw() {
@@ -24,9 +28,13 @@ void draw() {
       grid[i][j].display(119,113,56);
     }
   }
-  Block b = new Block(6); 
-  while (b.checkLowest()){ 
-    b.shiftDown();
+  //Block b = new Block(6); 
+  timePassed = millis() - startTime;
+  if (timePassed > waitTime){ 
+    if(b.checkLowest()){
+       b.shiftDown();
+       startTime = millis();
+    }
   }
 }
 
