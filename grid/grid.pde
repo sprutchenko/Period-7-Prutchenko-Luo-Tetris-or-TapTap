@@ -13,6 +13,7 @@ void setup() {
   for (int i = 0; i < cols; i++) {
     for (int j = 0; j < rows; j++) {
       grid[i][j] = new Cell(i*25,j*25,25,25);
+      grid[i][j].display(119,113,56);
     }
   }
   startTime = millis();
@@ -20,14 +21,14 @@ void setup() {
 }
 
 void draw() {
-  background(0);
+  //background(0);
   // The counter variables i and j are also the column and row numbers and 
   // are used as arguments to the constructor for each object in the grid.  
-  for (int i = 0; i < cols; i++) {
-    for (int j = 0; j < rows; j++) {
-      grid[i][j].display(119,113,56);
-    }
-  }
+  //for (int i = 0; i < cols; i++) {
+    //for (int j = 0; j < rows; j++) {
+      //grid[i][j].display(119,113,56);
+    //}
+  //}
   //Block b = new Block(6); 
   timePassed = millis() - startTime;
   if (timePassed > waitTime){ 
