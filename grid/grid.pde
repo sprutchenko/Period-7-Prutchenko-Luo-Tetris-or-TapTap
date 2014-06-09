@@ -32,9 +32,7 @@ void draw() {
 void keyPressed() {
   if (key == CODED) {
     if (keyCode == UP){ 
-      if(b.checkLowest()){
-          b.shiftDown();
-      }
+      b.spin();
     } 
     else if (keyCode == DOWN) {
       if(b.checkLowest()){
@@ -196,7 +194,7 @@ class Block{
  }
  
  boolean checkRight(){
-   if(rightest <= 10*25){
+   if(rightest <= 8*25){
      return true;
    }else{
      return false;
@@ -214,7 +212,7 @@ class Block{
  }
    
  boolean checkLeft(){
-   if(leftest >= 0*25){
+   if(leftest >= 1*25){
      return true;
    }else{
      return false;
@@ -230,7 +228,22 @@ class Block{
    leftest -= 25;
    setBlockColor(0,0,0);
    }
-   
+ void spin(){
+  setBlockColor(119,113,56);
+  int difInXa= a.getXcoor() - b.getXcoor();
+  int difInXc= c.getXcoor() - b.getXcoor();
+  int difInXd= d.getXcoor() - b.getXcoor();
+  int difInYa= a.getYcoor() - b.getYcoor();
+  int difInYc= c.getYcoor() - b.getYcoor();
+  int difInYd= d.getYcoor() - b.getYcoor();
+  a.setXcoor(b.getXcoor() + difInYa);
+  c.setXcoor(b.getXcoor() + difInYc);
+  d.setXcoor(b.getXcoor() + difInYd);
+  a.setYcoor(b.getYcoor() - difInXa);
+  c.setYcoor(b.getYcoor() - difInXc);
+  d.setYcoor(b.getYcoor() - difInXd);
+  setBlockColor(0,0,0);
+ }
    
 }
   
