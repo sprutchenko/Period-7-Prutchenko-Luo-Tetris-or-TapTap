@@ -19,7 +19,7 @@ void setup() {
     }
   }
   startTime = millis();
-  b= new Block(7);
+  b= new Block(3);
   block = true;
 }
 
@@ -32,18 +32,19 @@ void draw() {
     }
     else{
       b.stickToBoard();
-      clearRow();
-      int r = 1+ (int) (Math.random()*6);
+      drop();
+      int r =  (int) (Math.random()*6);
       b= new Block(r)  ;
     }
   }
 }
+/*
  void clearRow(){
     int counter=0;
     int row=19;
     for (int i=19; i>-1; i--){
       for (int j=0; j<10; j++){
-        if(grid[j][i].getColor()!= 87){
+        if(grid[j][i].getColori()!= 87){
           counter++;
           row=i;
         }
@@ -56,15 +57,41 @@ void draw() {
       }      
     }
   }
+  */
+  
+  boolean ifClear(Cell[] x){
+    int counter = 0;
+    for(int i = 0; i < 10; i++){
+      if (x[i].getColori() != 87){
+        counter ++;
+      }
+    }
+    if(counter == 10){
+      return true;
+    }else{
+      return false;
+    }
+  }
+  
+ void drop(){
+   for (int i = 0; i < 10; i ++){
+     if(ifClear(grid[i])){
+       for(int j=0; j < 20; j++){
+         grid[i][j].setColor(grid[i-1][j].getColori(),grid[i-1][j].getColorii(),grid[i-1][j].getColoriii());
+       }
+     }
+   }
+ }
+  /*    
   void drop(int x){
     while (x>-1){
       for (int i=0; i<10; i++){
-        grid[x][i].setColor(grid[x-1][i].getColor(), grid[x-1][i].getColorii(), grid[x-1][i].getColoriii());  
+        grid[x][i].setColor(grid[x-1][i].getColori(), grid[x-1][i].getColorii(), grid[x-1][i].getColoriii());  
       }
     x--;
     }
   }    
-
+*/
 void keyPressed() {
   if (key == CODED) {
     if (keyCode == UP){ 
@@ -86,13 +113,14 @@ void keyPressed() {
         if(b.checkLeft()){
             b.shiftLeft();
         }
-  
-      //else if (keyCode == SPACE){
-       //b.drop();
-      //}
+    }
+  }else{
+     if (key == ' '){
+      b.fallstraight();
     }
   }
 }
+
 
 
 // A Cell object
@@ -119,7 +147,7 @@ class Cell {
      colorg = c;
   }
 
-  int getColor(){
+  int getColori(){
     return colore;
   }
     int getColorii(){
@@ -158,7 +186,7 @@ class Block{
   Cell a,b,c,d;
   
   int type; 
-  //type 1 = square, type 2 = stick, type 3 = "s" block, type 4 = "z" block, type 5 = "L" block, type 6 = flipped "L" block
+  //type 1 = square, type 2 = stick, type 3 = "s" block, type 4 = "z" block, type 5 = "L" block, type 6 = flipped "L" block, type 7 = T block
   
   int lowest;
   int leftest;
@@ -180,7 +208,7 @@ class Block{
        b = new Cell(25*5,0,25,25);
        c = new Cell(25*4,25,25,25);
        d = new Cell(25*5,25,25,25);
-       setBlockColor(0,0,0);
+       setBlockColor(225,204,0);
        lowest = 25;
        rightest = 5*25;
        leftest = 4*25;
@@ -189,7 +217,7 @@ class Block{
       b = new Cell(25*4,25,25,25);
       c = new Cell(25*4,25*2,25,25);
       d = new Cell(25*4,25*3,25,25);
-      setBlockColor(0,0,0);
+      setBlockColor(132,112,255);
       lowest = 75;
       rightest = 4*25;
       leftest= 4*25;
@@ -198,7 +226,7 @@ class Block{
       b = new Cell(25*5,0,25,25);
       c = new Cell(25*4,25,25,25);
       d = new Cell(25*3,25,25,25);
-      setBlockColor(0,0,0);
+      setBlockColor(20,75,200);
       lowest = 25;
       rightest = 25*5;
       leftest = 25*3; 
@@ -207,7 +235,7 @@ class Block{
       b = new Cell(25*4,0,25,25);
       c = new Cell(25*4,25,25,25);
       d = new Cell(25*5,25,25,25);
-      setBlockColor(0,0,0);
+      setBlockColor(250,218,221);
       lowest = 25;
       rightest = 25*5;
       leftest = 25*3;
@@ -216,7 +244,7 @@ class Block{
       b = new Cell(25*4,25,25,25);
       c = new Cell(25*5,25,25,25);
       d = new Cell(25*5,0,25,25);
-      setBlockColor(0,0,0);
+      setBlockColor(255,245,238);
       lowest = 25;
       rightest = 25*5;
       leftest = 25*3;
@@ -225,7 +253,7 @@ class Block{
       b = new Cell(25*3,25,25,25);
       c = new Cell(25*4,25,25,25);
       d = new Cell(25*5,25,25,25);
-      setBlockColor(0,0,0);
+      setBlockColor(72,61,139);
       lowest = 25;
       rightest = 25*5;
       leftest = 25*3;
@@ -234,7 +262,7 @@ class Block{
     b = new Cell(25*4,0,25,25);
     c = new Cell(25*5,0,25,25);
     d = new Cell(25*4,25,25,25);
-    setBlockColor(0,0,0);
+    setBlockColor(283,92,68);
     lowest = 25;
     rightest = 25*5;
     leftest = 25*2;
@@ -261,7 +289,7 @@ class Block{
  //checkLowest() checks whether the block has reached the bottom or not 
  boolean checkLowest(){
     if (lowest <= 25*18){
-     if(grid[a.getXcoor()/25][(a.getYcoor()/25)+1].getColor() == 87 && grid[b.getXcoor()/25][(b.getYcoor()/25)+1].getColor() == 87 && grid[c.getXcoor()/25][(c.getYcoor()/25)+1].getColor() == 87 && grid[d.getXcoor()/25][(d.getYcoor()/25)+1].getColor() == 87){
+     if(grid[a.getXcoor()/25][(a.getYcoor()/25)+1].getColori() == 87 && grid[b.getXcoor()/25][(b.getYcoor()/25)+1].getColori() == 87 && grid[c.getXcoor()/25][(c.getYcoor()/25)+1].getColori() == 87 && grid[d.getXcoor()/25][(d.getYcoor()/25)+1].getColori() == 87){
       return true;
       }else{
       return false;
@@ -275,16 +303,19 @@ class Block{
   
  //shifts down block by one unit, gets rid of previous color and adds new color at new location
  void shiftDown(){
+   int x = a.getColori();
+   int y = a.getColorii();
+   int z = a.getColoriii();
    setBlockColor(87,87,87);
    a.setYcoor(a.getYcoor() + 25);
    b.setYcoor(b.getYcoor() + 25);
    c.setYcoor(c.getYcoor() + 25);
    d.setYcoor(d.getYcoor() + 25);
    lowest += 25;
-   setBlockColor(0,0,0);
+   setBlockColor(x,y,z);
  }
  
- void drop(){
+ void fallstraight(){
    while (checkLowest()){
      shiftDown();
    }
@@ -292,7 +323,7 @@ class Block{
  
  boolean checkRight(){
    if(rightest <= 8*25){
-     if(grid[(a.getXcoor()/25)+1][a.getYcoor()/25].getColor() == 87 && grid[(b.getXcoor()/25)+1][b.getYcoor()/25].getColor() == 87 && grid[(c.getXcoor()/25)+1][c.getYcoor()/25].getColor() == 87 && grid[(d.getXcoor()/25)+1][d.getYcoor()/25].getColor() == 87){
+     if(grid[(a.getXcoor()/25)+1][a.getYcoor()/25].getColori() == 87 && grid[(b.getXcoor()/25)+1][b.getYcoor()/25].getColori() == 87 && grid[(c.getXcoor()/25)+1][c.getYcoor()/25].getColori() == 87 && grid[(d.getXcoor()/25)+1][d.getYcoor()/25].getColori() == 87){
        return true;
      }else{
        return false;
@@ -302,6 +333,9 @@ class Block{
    }
  }
  void shiftRight(){
+   int x = a.getColori();
+   int y = a.getColorii();
+   int z = a.getColoriii();
    setBlockColor(87,87,87);
    a.setXcoor(a.getXcoor() + 25);
    b.setXcoor(b.getXcoor() + 25);
@@ -309,12 +343,12 @@ class Block{
    d.setXcoor(d.getXcoor() + 25);
    rightest += 25;
    leftest += 25;
-   setBlockColor(0,0,0);
+   setBlockColor(x,y,z);
  }
    
  boolean checkLeft(){
    if(leftest >= 1*25){
-     if(grid[(a.getXcoor()/25)-1][a.getYcoor()/25].getColor() == 87 && grid[(b.getXcoor()/25)-1][b.getYcoor()/25].getColor() == 87 && grid[(c.getXcoor()/25)-1][c.getYcoor()/25].getColor() == 87 && grid[(d.getXcoor()/25)-1][d.getYcoor()/25].getColor() == 87){
+     if(grid[(a.getXcoor()/25)-1][a.getYcoor()/25].getColori() == 87 && grid[(b.getXcoor()/25)-1][b.getYcoor()/25].getColori() == 87 && grid[(c.getXcoor()/25)-1][c.getYcoor()/25].getColori() == 87 && grid[(d.getXcoor()/25)-1][d.getYcoor()/25].getColori() == 87){
        return true;
      }else{
        return false;
@@ -325,6 +359,9 @@ class Block{
  
  }
  void shiftLeft(){
+   int x = a.getColori();
+   int y = a.getColorii();
+   int z = a.getColoriii();
    setBlockColor(87,87,87);
    a.setXcoor(a.getXcoor() - 25);
    b.setXcoor(b.getXcoor() - 25);
@@ -332,8 +369,9 @@ class Block{
    d.setXcoor(d.getXcoor() - 25);
    rightest -= 25;
    leftest -= 25;
-   setBlockColor(0,0,0);
+   setBlockColor(x,y,z);
    }
+  
   
    boolean spinnable(){
     if (checkLeft() && checkRight() && checkLowest()){
@@ -349,6 +387,9 @@ class Block{
      
    
  void spin(){
+  int x = a.getColori();
+  int y = a.getColorii();
+  int z = a.getColoriii();
   if (type != 1){
     setBlockColor(87,87,87);
     int difInXa= a.getXcoor() - b.getXcoor();
@@ -363,14 +404,14 @@ class Block{
     a.setYcoor(b.getYcoor() + difInXa);
     c.setYcoor(b.getYcoor() + difInXc);
     d.setYcoor(b.getYcoor() + difInXd);
-    setBlockColor(0,0,0);
+    setBlockColor(x,y,z);
     rightest = determRightest();
     leftest = determLeftest();
     lowest = determLowest();   
    }
  }
  void stickToBoard(){
-      setBlockColor(87,87,87);
+      setBlockColor(a.getColori(),a.getColorii(),a.getColoriii());
       grid[a.getXcoor()/25][a.getYcoor()/25].display(0,0,0);
       grid[b.getXcoor()/25][b.getYcoor()/25].display(0,0,0);
       grid[c.getXcoor()/25][c.getYcoor()/25].display(0,0,0);
