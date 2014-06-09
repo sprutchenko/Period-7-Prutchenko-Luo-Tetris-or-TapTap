@@ -19,7 +19,7 @@ void setup() {
     }
   }
   startTime = millis();
-  b= new Block(6);
+  b= new Block(7);
   block = true;
 }
 
@@ -192,6 +192,15 @@ class Block{
       lowest = 25;
       rightest = 25*5;
       leftest = 25*3;
+  }else if (x==7){
+    a = new Cell(25*3,0,25,25);
+    b = new Cell(25*4,0,25,25);
+    c = new Cell(25*5,0,25,25);
+    d = new Cell(25*4,25,25,25);
+    setBlockColor(0,0,0);
+    lowest = 25;
+    rightest = 25*5;
+    leftest = 25*2;
   }
  }
  
