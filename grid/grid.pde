@@ -38,7 +38,7 @@ void draw() {
 void keyPressed() {
   if (key == CODED) {
     if (keyCode == UP){ 
-      if(b.checkLowest()){
+      if(b.spinnable()){
           b.spin();
      }
     }
@@ -258,7 +258,19 @@ class Block{
    leftest -= 25;
    setBlockColor(0,0,0);
    }
-   
+  
+   boolean spinnable(){
+    if (checkLeft() && checkRight() && checkLowest()){
+      if(leftest >= 2* 25 && rightest <= 7*25 && lowest <= 25*17){
+       return true;
+      }else{
+        return false;  
+    }
+   }else{
+      return false;      
+    }
+   }
+     
    
  void spin(){
   if (type != 1){
