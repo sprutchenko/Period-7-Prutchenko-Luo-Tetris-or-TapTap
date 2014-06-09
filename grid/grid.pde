@@ -59,9 +59,9 @@ void keyPressed() {
             b.shiftLeft();
         }
   
-      //else if (keyCode == SPACE){
-       //b.drop();
-      //}
+      else if (keyCode == SPACE){
+       b.drop();
+      }
     }
   }
 }
@@ -247,6 +247,12 @@ class Block{
    setBlockColor(0,0,0);
  }
  
+ void drop(){
+   while (checkLowest()){
+     shiftDown();
+   }
+ }
+ 
  boolean checkRight(){
    if(rightest <= 8*25){
      if(grid[(a.getXcoor()/25)+1][a.getYcoor()/25].getColor() == 87 && grid[(b.getXcoor()/25)+1][b.getYcoor()/25].getColor() == 87 && grid[(c.getXcoor()/25)+1][c.getYcoor()/25].getColor() == 87 && grid[(d.getXcoor()/25)+1][d.getYcoor()/25].getColor() == 87){
@@ -279,6 +285,7 @@ class Block{
    }else{
      return false;
    }
+ 
  }
  void shiftLeft(){
    setBlockColor(87,87,87);
