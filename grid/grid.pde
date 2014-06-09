@@ -15,7 +15,7 @@ void setup() {
   for (int i = 0; i < cols; i++) {
     for (int j = 0; j < rows; j++) {
       grid[i][j] = new Cell(i*25,j*25,25,25);
-      grid[i][j].display(119,113,56);
+      grid[i][j].display(87,87,87);
     }
   }
   startTime = millis();
@@ -32,6 +32,8 @@ void draw() {
     }
     else{
       b.stickToBoard();
+      int r = 1+ (int) (Math.random()*6);
+      b= new Block(r)  ;
     }
   }
 }
@@ -70,7 +72,7 @@ class Cell {
   // A cell object knows about its location in the grid as well as its size with the variables x,y,w,h.
   int x,y;   // x,y location
   int w,h;   // width and height
- 
+  int colore;
 
   // Cell Constructor
   Cell(int tempX, int tempY, int tempW, int tempH) {
@@ -84,12 +86,18 @@ class Cell {
   void setColor(int a,int b, int c) {
      fill(a,b,c);
      rect(x,y,w,h);
+     colore = a;
   }
 
+  int getColor(){
+    return colore;
+  }
+  
   void display(int p,int q, int r) {
     stroke(255);
     fill(p,q,r);
     rect(x,y,w,h); 
+    colore = p;
   }
   
   int getXcoor(){
@@ -207,14 +215,21 @@ class Block{
  //checkLowest() checks whether the block has reached the bottom or not 
  boolean checkLowest(){
     if (lowest <= 25*18){
-     return true;
+     if(grid[a.getXcoor()/25][(a.getYcoor()/25)+1].getColor() == 87){
+        a.setColor(12,134,14);
+        return true;
+      }else{
+       return false;
+      }
     }else{
-     return false;
+      return false;
     }
- } 
+ }
+ 
+  
  //shifts down block by one unit, gets rid of previous color and adds new color at new location
  void shiftDown(){
-   setBlockColor(119,113,56);
+   setBlockColor(87,87,87);
    a.setYcoor(a.getYcoor() + 25);
    b.setYcoor(b.getYcoor() + 25);
    c.setYcoor(c.getYcoor() + 25);
@@ -231,7 +246,7 @@ class Block{
    }
  }
  void shiftRight(){
-   setBlockColor(119,113,56);
+   setBlockColor(87,87,87);
    a.setXcoor(a.getXcoor() + 25);
    b.setXcoor(b.getXcoor() + 25);
    c.setXcoor(c.getXcoor() + 25);
@@ -249,7 +264,7 @@ class Block{
    }
  }
  void shiftLeft(){
-   setBlockColor(119,113,56);
+   setBlockColor(87,87,87);
    a.setXcoor(a.getXcoor() - 25);
    b.setXcoor(b.getXcoor() - 25);
    c.setXcoor(c.getXcoor() - 25);
@@ -274,7 +289,7 @@ class Block{
    
  void spin(){
   if (type != 1){
-    setBlockColor(119,113,56);
+    setBlockColor(87,87,87);
     int difInXa= a.getXcoor() - b.getXcoor();
     int difInXc= c.getXcoor() - b.getXcoor();
     int difInXd= d.getXcoor() - b.getXcoor();
@@ -294,12 +309,12 @@ class Block{
    }
  }
  void stickToBoard(){
-      setBlockColor(119,113,56);
+      setBlockColor(87,87,87);
       grid[a.getXcoor()/25][a.getYcoor()/25].display(0,0,0);
       grid[b.getXcoor()/25][b.getYcoor()/25].display(0,0,0);
       grid[c.getXcoor()/25][c.getYcoor()/25].display(0,0,0);
       grid[d.getXcoor()/25][d.getYcoor()/25].display(0,0,0);
-      b=null;
+
    
  }
 }
