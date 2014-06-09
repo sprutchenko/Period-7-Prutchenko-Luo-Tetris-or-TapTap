@@ -224,16 +224,16 @@ class Block{
  //checkLowest() checks whether the block has reached the bottom or not 
  boolean checkLowest(){
     if (lowest <= 25*18){
-     if(grid[a.getXcoor()/25][(a.getYcoor()/25)+1].getColor() == 87){
-        a.setColor(12,134,14);
-        return true;
+     if(grid[a.getXcoor()/25][(a.getYcoor()/25)+1].getColor() == 87 && grid[b.getXcoor()/25][(b.getYcoor()/25)+1].getColor() == 87 && grid[c.getXcoor()/25][(c.getYcoor()/25)+1].getColor() == 87 && grid[d.getXcoor()/25][(d.getYcoor()/25)+1].getColor() == 87){
+      return true;
       }else{
-       return false;
+      return false;
       }
     }else{
       return false;
     }
  }
+ 
  
   
  //shifts down block by one unit, gets rid of previous color and adds new color at new location
