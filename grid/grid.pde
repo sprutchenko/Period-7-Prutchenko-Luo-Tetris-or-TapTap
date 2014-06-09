@@ -6,6 +6,7 @@ int rows = 20;
 int startTime, timePassed;
 int waitTime=2000;
 Block b;
+boolean block;
 
 void setup() {
   size(250,500);
@@ -17,7 +18,8 @@ void setup() {
     }
   }
   startTime = millis();
-  b= new Block(3);
+  b= new Block(5);
+  block = true;
 }
 
 void draw() {
@@ -44,11 +46,14 @@ void keyPressed() {
             b.shiftRight();
         }
       }
-      else{
+      else if (keyCode == LEFT){
         if(b.checkLeft()){
             b.shiftLeft();
         }
       }
+      //else if (keyCode == SPACE){
+       //b.drop();
+      //}
     }
   }
 
@@ -236,15 +241,14 @@ class Block{
   int difInYa= a.getYcoor() - b.getYcoor();
   int difInYc= c.getYcoor() - b.getYcoor();
   int difInYd= d.getYcoor() - b.getYcoor();
-  a.setXcoor(b.getXcoor() + difInYa);
-  c.setXcoor(b.getXcoor() + difInYc);
-  d.setXcoor(b.getXcoor() + difInYd);
-  a.setYcoor(b.getYcoor() - difInXa);
-  c.setYcoor(b.getYcoor() - difInXc);
-  d.setYcoor(b.getYcoor() - difInXd);
+  a.setXcoor(b.getXcoor() - difInYa);
+  c.setXcoor(b.getXcoor() - difInYc);
+  d.setXcoor(b.getXcoor() - difInYd);
+  a.setYcoor(b.getYcoor() + difInXa);
+  c.setYcoor(b.getYcoor() + difInXc);
+  d.setYcoor(b.getYcoor() + difInXd);
   setBlockColor(0,0,0);
  }
-   
 }
   
   
