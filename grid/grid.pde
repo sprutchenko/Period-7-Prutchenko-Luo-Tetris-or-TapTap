@@ -18,7 +18,7 @@ void setup() {
     }
   }
   startTime = millis();
-  b= new Block(5);
+  b= new Block(1);
   block = true;
 }
 
@@ -234,20 +234,22 @@ class Block{
    setBlockColor(0,0,0);
    }
  void spin(){
-  setBlockColor(119,113,56);
-  int difInXa= a.getXcoor() - b.getXcoor();
-  int difInXc= c.getXcoor() - b.getXcoor();
-  int difInXd= d.getXcoor() - b.getXcoor();
-  int difInYa= a.getYcoor() - b.getYcoor();
-  int difInYc= c.getYcoor() - b.getYcoor();
-  int difInYd= d.getYcoor() - b.getYcoor();
-  a.setXcoor(b.getXcoor() - difInYa);
-  c.setXcoor(b.getXcoor() - difInYc);
-  d.setXcoor(b.getXcoor() - difInYd);
-  a.setYcoor(b.getYcoor() + difInXa);
-  c.setYcoor(b.getYcoor() + difInXc);
-  d.setYcoor(b.getYcoor() + difInXd);
-  setBlockColor(0,0,0);
+  if (type != 1){
+    setBlockColor(119,113,56);
+    int difInXa= a.getXcoor() - b.getXcoor();
+    int difInXc= c.getXcoor() - b.getXcoor();
+    int difInXd= d.getXcoor() - b.getXcoor();
+    int difInYa= a.getYcoor() - b.getYcoor();
+    int difInYc= c.getYcoor() - b.getYcoor();
+    int difInYd= d.getYcoor() - b.getYcoor();
+    a.setXcoor(b.getXcoor() - difInYa);
+    c.setXcoor(b.getXcoor() - difInYc);
+    d.setXcoor(b.getXcoor() - difInYd);
+    a.setYcoor(b.getYcoor() + difInXa);
+    c.setYcoor(b.getYcoor() + difInXc);
+    d.setYcoor(b.getYcoor() + difInXd);
+    setBlockColor(0,0,0);
+   }
  }
 }
   
