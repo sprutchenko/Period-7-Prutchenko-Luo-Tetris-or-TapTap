@@ -32,11 +32,39 @@ void draw() {
     }
     else{
       b.stickToBoard();
+      clearRow();
       int r = 1+ (int) (Math.random()*6);
       b= new Block(r)  ;
     }
   }
 }
+ void clearRow(){
+    int counter=0;
+    int row=19;
+    for (int i=19; i>-1; i--){
+      for (int j=0; j<10; j++){
+        if(grid[j][i].getColor()!= 87){
+          counter++;
+          row=i;
+        }
+      }
+    if (counter==10){
+      for (int k=0; k<10; k++){
+        grid[k][row].setColor(87,87,87);
+        drop(row);
+        }
+      }      
+    }
+  }
+  void drop(int x){
+    while (x>-1){
+      for (int i=0; i<10; i++){
+        grid[x][i].setColor(grid[x-1][i].getColor(), grid[x-1][i].getColorii(), grid[x-1][i].getColoriii());  
+      }
+    x--;
+    }
+  }    
+
 void keyPressed() {
   if (key == CODED) {
     if (keyCode == UP){ 
@@ -59,9 +87,9 @@ void keyPressed() {
             b.shiftLeft();
         }
   
-      else if (keyCode == SPACE){
-       b.drop();
-      }
+      //else if (keyCode == SPACE){
+       //b.drop();
+      //}
     }
   }
 }
@@ -72,7 +100,7 @@ class Cell {
   // A cell object knows about its location in the grid as well as its size with the variables x,y,w,h.
   int x,y;   // x,y location
   int w,h;   // width and height
-  int colore;
+  int colore, colorf, colorg;
 
   // Cell Constructor
   Cell(int tempX, int tempY, int tempW, int tempH) {
@@ -87,11 +115,20 @@ class Cell {
      fill(a,b,c);
      rect(x,y,w,h);
      colore = a;
+     colorf = b;
+     colorg = c;
   }
 
   int getColor(){
     return colore;
   }
+    int getColorii(){
+    return colorf;
+  }
+    int getColoriii(){
+    return colorg;
+  }
+  
   
   void display(int p,int q, int r) {
     stroke(255);
