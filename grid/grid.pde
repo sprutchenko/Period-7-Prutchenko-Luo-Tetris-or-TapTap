@@ -1,3 +1,4 @@
+import java.util.*;
 Cell[][] grid;
 
 // Number of columns and rows in the grid
@@ -18,7 +19,7 @@ void setup() {
     }
   }
   startTime = millis();
-  b= new Block(1);
+  b= new Block(6);
   block = true;
 }
 
@@ -34,9 +35,11 @@ void draw() {
 void keyPressed() {
   if (key == CODED) {
     if (keyCode == UP){ 
-      b.spin();
-    } 
-    else if (keyCode == DOWN) {
+      if(b.checkLowest()){
+          b.spin();
+     }
+    }
+     else if (keyCode == DOWN) {
       if(b.checkLowest()){
           b.shiftDown();
         }       
@@ -179,6 +182,24 @@ class Block{
       leftest = 25*3;
   }
  }
+ 
+ int determRightest(){
+   int[] x = {a.getXcoor(),b.getXcoor(),c.getXcoor(), d.getXcoor()};
+   Arrays.sort(x);
+   return x[3];
+ }
+ 
+  int determLeftest(){
+   int[] x = {a.getXcoor(),b.getXcoor(),c.getXcoor(), d.getXcoor()};
+   Arrays.sort(x);
+   return x[0];
+ }
+ 
+  int determLowest(){
+   int[] x = {a.getYcoor(),b.getYcoor(),c.getYcoor(), d.getYcoor()};
+   Arrays.sort(x);
+   return x[3];
+ }
  //checkLowest() checks whether the block has reached the bottom or not 
  boolean checkLowest(){
     if (lowest <= 25*18){
@@ -233,6 +254,8 @@ class Block{
    leftest -= 25;
    setBlockColor(0,0,0);
    }
+   
+   
  void spin(){
   if (type != 1){
     setBlockColor(119,113,56);
@@ -249,6 +272,9 @@ class Block{
     c.setYcoor(b.getYcoor() + difInXc);
     d.setYcoor(b.getYcoor() + difInXd);
     setBlockColor(0,0,0);
+    rightest = determRightest();
+    leftest = determLeftest();
+    lowest = determLowest();   
    }
  }
 }
