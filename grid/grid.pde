@@ -30,6 +30,9 @@ void draw() {
        b.shiftDown();
        startTime = millis();
     }
+    else{
+      b.stickToBoard();
+    }
   }
 }
 void keyPressed() {
@@ -53,12 +56,13 @@ void keyPressed() {
         if(b.checkLeft()){
             b.shiftLeft();
         }
-      }
+  
       //else if (keyCode == SPACE){
        //b.drop();
       //}
     }
   }
+}
 
 
 // A Cell object
@@ -277,8 +281,14 @@ class Block{
     lowest = determLowest();   
    }
  }
+ void stickToBoard(){
+      setBlockColor(119,113,56);
+      grid[a.getXcoor()/25][a.getYcoor()/25].display(0,0,0);
+      grid[b.getXcoor()/25][b.getYcoor()/25].display(0,0,0);
+      grid[c.getXcoor()/25][c.getYcoor()/25].display(0,0,0);
+      grid[d.getXcoor()/25][d.getYcoor()/25].display(0,0,0);
+      b=null;
+   
+ }
 }
-  
-  
-
 
